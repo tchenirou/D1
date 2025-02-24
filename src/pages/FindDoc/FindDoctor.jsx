@@ -1,53 +1,92 @@
-"use client";
+"use client"
 
-import { useState, useEffect } from "react";
-import { Search, MapPin, Calendar, Star, Clock, Filter, X } from "lucide-react";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css"; // Import DatePicker styles
-import { format } from "date-fns";
-import "./FindDoctor.css";
-
+import { useState, useEffect } from "react"
+import { Search, MapPin, Calendar, Star, Clock, Filter, X, ChevronDown, ChevronUp } from 'lucide-react'
+import { format, addDays, startOfWeek, endOfWeek, eachDayOfInterval } from 'date-fns'
+import "./FindDoctor.css"
 const specialties = [
   "Médecine générale", "Pédiatrie", "Cardiologie", "Dermatologie", "Gynécologie",
   "Ophtalmologie", "Orthopédie", "Psychiatrie", "Neurologie", "Endocrinologie"
-];
+]
 
 const mockDoctors = [
-  { id: 1, name: "Dr. Sarah Benali", specialty: "Médecine générale", rating: 4.8, reviews: 124, nextAvailable: "Aujourd'hui", image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-aHGX7MjBhr26kxLEnweg7Qf6egNxkI.png" },
-  { id: 2, name: "Dr. Ahmed Kader", specialty: "Cardiologie", rating: 4.9, reviews: 98, nextAvailable: "Demain", image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-aHGX7MjBhr26kxLEnweg7Qf6egNxkI.png" },
-  { id: 3, name: "Dr. Leila Mansouri", specialty: "Pédiatrie", rating: 4.7, reviews: 156, nextAvailable: "Dans 2 jours", image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-aHGX7MjBhr26kxLEnweg7Qf6egNxkI.png" }
-];
+  { id: 1, name: "Dr. Sarah Benali", specialty: "Gynécologie", rating: 4.8, reviews: 124, image: "/Images/Dfemme2.png" },
+  { id: 2, name: "Dr. Ahmed Kader", specialty: "Cardiologie", rating: 4.9, reviews: 98, image: "/Images/Dhomme1.png" },
+  { id: 3, name: "Dr. Leila Mansouri", specialty: "Pédiatrie", rating: 4.7, reviews: 156, image: "/Images/Dfemme1.jpg" },
+  { id: 4, name: "Dr. Karim Zidane", specialty: "Dermatologie", rating: 4.4, reviews: 89, image: "/Images/Dhomme2.png" },
+  { id: 5, name: "Dr. Amine Tazi", specialty: "Médecine générale", rating: 4.9, reviews: 201, image: "/Images/Dhomme3.png" },
+  { id: 6, name: "Dr. Youssef El Amrani", specialty: "Ophtalmologie", rating: 4.8, reviews: 112, image: "/Images/Dhomme4.png" },
+]
 
 function FindDoctor() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedSpecialty, setSelectedSpecialty] = useState("");
-  const [selectedAvailability, setSelectedAvailability] = useState("");
-  const [showFilters, setShowFilters] = useState(false);
-  const [doctors, setDoctors] = useState(mockDoctors);
-  const [selectedDoctor, setSelectedDoctor] = useState(null);
-  const [showAppointmentModal, setShowAppointmentModal] = useState(false);
-  const [mapView, setMapView] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(new Date()); // 🆕 State for DatePicker
+  const [searchTerm, setSearchTerm] = useState("")
+  const [selectedSpecialty, setSelectedSpecialty] = useState("")
+  const [selectedRating, setSelectedRating] = useState(0)
+  const [doctors, setDoctors] = useState(mockDoctors)
+  const [selectedDoctor, setSelectedDoctor] = useState(null)
+  const [selectedDate, setSelectedDate] = useState(new Date())
+  const [showAppointmentModal, setShowAppointmentModal] = useState(false)
 
   useEffect(() => {
-    const filteredDoctors = mockDoctors.filter(doctor =>
+    const filteredDoctors = mockDoctors.filter(doctor => 
       (searchTerm === "" || doctor.name.toLowerCase().includes(searchTerm.toLowerCase()) || doctor.specialty.toLowerCase().includes(searchTerm.toLowerCase())) &&
       (selectedSpecialty === "" || doctor.specialty === selectedSpecialty) &&
-      (selectedAvailability === "" || doctor.nextAvailable.toLowerCase().includes(selectedAvailability.toLowerCase()))
-    );
-    setDoctors(filteredDoctors);
-  }, [searchTerm, selectedSpecialty, selectedAvailability]);
+      (selectedRating === 0 || doctor.rating >= selectedRating)
+    )
+    setDoctors(filteredDoctors)
+  }, [searchTerm, selectedSpecialty, selectedRating])
+
+  const handleSearch = (e) => {
+    e.preventDefault()
+    // Implement search logic here
+  }
 
   const handleBookAppointment = (doctor) => {
-    setSelectedDoctor(doctor);
-    setShowAppointmentModal(true);
-  };
+    setSelectedDoctor(doctor)
+    setShowAppointmentModal(true)
+  }
+
+  const generateTimeSlots = () => {
+    const slots = []
+    for (let i = 9; i <= 17; i++) {
+      slots.push(`${i}:00`)
+      if (i !== 17) slots.push(`${i}:30`)
+    }
+    return slots
+  }
+
+  const renderWeekCalendar = () => {
+    const startDate = startOfWeek(selectedDate, { weekStartsOn: 1 })
+    const endDate = endOfWeek(selectedDate, { weekStartsOn: 1 })
+    const days = eachDayOfInterval({ start: startDate, end: endDate })
+
+    return (
+      <div className="week-calendar">
+        {days.map((day, index) => (
+          <div key={index} className="day-column">
+            <div className="day-header">{format(day, 'EEE d')}</div>
+            {generateTimeSlots().map((slot, slotIndex) => (
+              <button key={slotIndex} className="time-slot" onClick={() => handleSelectTimeSlot(day, slot)}>
+                {slot}
+              </button>
+            ))}
+          </div>
+        ))}
+      </div>
+    )
+  }
+
+  const handleSelectTimeSlot = (day, time) => {
+    console.log(`Selected: ${format(day, 'yyyy-MM-dd')} at ${time}`)
+    // Here you would typically save the appointment or show a confirmation
+    setShowAppointmentModal(false)
+  }
 
   return (
     <div className="find-doctor-page">
       <div className="search-section">
         <h1>Trouvez le médecin idéal</h1>
-        <form className="search-form">
+        <form onSubmit={handleSearch} className="search-form">
           <div className="search-input">
             <Search className="search-icon" />
             <input
@@ -57,64 +96,50 @@ function FindDoctor() {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-          <button type="button" className="filter-button" onClick={() => setShowFilters(!showFilters)}>
-            <Filter className="filter-icon" />
-            Filtres
-          </button>
+          <select
+            value={selectedSpecialty}
+            onChange={(e) => setSelectedSpecialty(e.target.value)}
+            className="filter-select"
+          >
+            <option value="">Toutes les spécialités</option>
+            {specialties.map(specialty => (
+              <option key={specialty} value={specialty}>{specialty}</option>
+            ))}
+          </select>
+          <select
+            value={selectedRating}
+            onChange={(e) => setSelectedRating(Number(e.target.value))}
+            className="filter-select"
+          >
+            <option value={0}>Toutes les notes</option>
+            <option value={4}>4+ étoiles</option>
+            <option value={4.5}>4.5+ étoiles</option>
+          </select>
+          <button type="submit" className="search-button">Rechercher</button>
         </form>
-
-        {showFilters && (
-          <div className="filters">
-            <select value={selectedSpecialty} onChange={(e) => setSelectedSpecialty(e.target.value)} className="filter-select">
-              <option value="">Toutes les spécialités</option>
-              {specialties.map(specialty => (
-                <option key={specialty} value={specialty}>{specialty}</option>
-              ))}
-            </select>
-            <select value={selectedAvailability} onChange={(e) => setSelectedAvailability(e.target.value)} className="filter-select">
-              <option value="">Toutes les disponibilités</option>
-              <option value="Aujourd'hui">Aujourd'hui</option>
-              <option value="Demain">Demain</option>
-              <option value="Cette semaine">Cette semaine</option>
-            </select>
-            <button className="view-toggle" onClick={() => setMapView(!mapView)}>
-              {mapView ? "Vue liste" : "Vue carte"}
-            </button>
-          </div>
-        )}
       </div>
 
       <div className="results-section">
         <h2>Médecins disponibles ({doctors.length})</h2>
-        {mapView ? (
-          <div className="map-view">
-            <p>Carte des médecins (à implémenter)</p>
-          </div>
-        ) : (
-          <div className="doctors-list">
-            {doctors.map(doctor => (
-              <div key={doctor.id} className="doctor-card">
-                <img src={doctor.image || "/placeholder.svg"} alt={doctor.name} className="doctor-image" />
-                <div className="doctor-info">
-                  <h3>{doctor.name}</h3>
-                  <p>{doctor.specialty}</p>
-                  <div className="doctor-rating">
-                    <Star className="star-icon" />
-                    <span>{doctor.rating}</span>
-                    <span className="reviews-count">({doctor.reviews} avis)</span>
-                  </div>
-                  <div className="doctor-availability">
-                    <Clock className="clock-icon" />
-                    <span>Prochain RDV: {doctor.nextAvailable}</span>
-                  </div>
+        <div className="doctors-grid">
+          {doctors.map(doctor => (
+            <div key={doctor.id} className="doctor-card">
+              <img src={doctor.image || "/placeholder.svg"} alt={doctor.name} className="doctor-image" />
+              <div className="doctor-info">
+                <h3>{doctor.name}</h3>
+                <p>{doctor.specialty}</p>
+                <div className="doctor-rating">
+                  <Star className="star-icon" />
+                  <span>{doctor.rating}</span>
+                  <span className="reviews-count">({doctor.reviews} avis)</span>
                 </div>
-                <button className="book-button" onClick={() => handleBookAppointment(doctor)}>
-                  Prendre RDV
-                </button>
               </div>
-            ))}
-          </div>
-        )}
+              <button className="book-button" onClick={() => handleBookAppointment(doctor)}>
+                Prendre RDV
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
 
       {showAppointmentModal && selectedDoctor && (
@@ -125,42 +150,14 @@ function FindDoctor() {
             </button>
             <h2>Prendre rendez-vous avec {selectedDoctor.name}</h2>
             <p>{selectedDoctor.specialty}</p>
-
-            {/* 🆕 Date Picker Component */}
             <div className="appointment-calendar">
-              <label>Sélectionner une date :</label>
-              
-              <DatePicker
-  selected={selectedDate}
-  onChange={(date) => setSelectedDate(date)}
-  minDate={new Date()}
-  dateFormat="dd/MM/yyyy"
-  className="datepicker-input"
-  popperPlacement="bottom-start"
-  popperModifiers={[
-    {
-      name: "preventOverflow",
-      options: {
-        boundary: "viewport",
-      },
-    },
-  ]}
-  calendarClassName="custom-datepicker" // Apply new styles
-/>
-
-
-
-
+              {renderWeekCalendar()}
             </div>
-
-            <button className="confirm-appointment">
-              Confirmer le rendez-vous ({format(selectedDate, "dd/MM/yyyy")})
-            </button>
           </div>
         </div>
       )}
     </div>
-  );
+  )
 }
 
-export default FindDoctor;
+export default FindDoctor

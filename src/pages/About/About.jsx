@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 
+// Array of team members with their details
 const teamMembers = [
   {
     id: 1,
@@ -23,13 +24,17 @@ const teamMembers = [
     image: "/Images/yasmine.png"
   }
 ];
+
 function About() {
   const [headerVisible, setHeaderVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+
+  // Scroll to top when the component mounts
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
+  // Handle scroll to show/hide the header
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > lastScrollY && window.scrollY > 50) {
@@ -56,8 +61,10 @@ function About() {
       >
         <div className="container">
           <h1>À propos</h1>
-          <p className="subtitle">En tant que leader reconnu et premier spécialiste de la téléconsultation en Algerie, agréé par le Ministère de la Santé,
-             Dwak facilite l'accès aux soins en connectant patients et médecins. Notre plateforme permet d'obtenir une téléconsultation en toute confiance, dans la journée, 7j/7, où que vous soyez.</p>
+          <p className="subtitle">
+            En tant que leader reconnu et premier spécialiste de la téléconsultation en Algerie, agréé par le Ministère de la Santé,
+            Dwak facilite l'accès aux soins en connectant patients et médecins. Notre plateforme permet d'obtenir une téléconsultation en toute confiance, dans la journée, 7j/7, où que vous soyez.
+          </p>
         </div>
       </section>
 
@@ -65,10 +72,9 @@ function About() {
       <section className="about-mission">
         <div className="container">
           <div className="mission-content">
-            <h2>Notre mission
-            </h2>
+            <h2>Notre mission</h2>
             <p>
-            Garantir à tous les Algeriens des soins de qualité dans des délais adaptés à leurs besoins de santé
+              Garantir à tous les Algeriens des soins de qualité dans des délais adaptés à leurs besoins de santé
             </p>
           </div>
           <div className="stats-grid">
@@ -78,13 +84,11 @@ function About() {
             </div>
             <div className="stat-card">
               <h3>50+</h3>
-              <p>prestataire de santé
-              </p>
+              <p>prestataire de santé</p>
             </div>
             <div className="stat-card">
               <h3>24/7</h3>
-              <p>Assistance disponible
-              </p>
+              <p>Assistance disponible</p>
             </div>
           </div>
         </div>
@@ -92,28 +96,27 @@ function About() {
 
       {/* Team Section */}
       <section className="about-team">
-      <div className="container">
-        <h2>Notre équipe</h2>
-        <div className="team-grid">
-          {teamMembers.map((member) => (
-            <div key={member.id} className="team-card">
-              <div className="team-image">
-                <img src={member.image} alt={`Team member ${member.name}`} />
+        <div className="container">
+          <h2>Notre équipe</h2>
+          <div className="team-grid">
+            {teamMembers.map((member) => (
+              <div key={member.id} className="team-card">
+                <div className="team-image">
+                  <img src={member.image} alt={`Team member ${member.name}`} />
+                </div>
+                <h3>{member.name}</h3>
+                <p className="role">{member.role}</p>
+                <p className="bio">{member.bio}</p>
               </div>
-              <h3>{member.name}</h3>
-              <p className="role">{member.role}</p>
-              <p className="bio">{member.bio}</p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
       {/* Values Section */}
       <section className="about-values">
         <div className="container">
-          <h2>Nos valeurs
-          </h2>
+          <h2>Nos valeurs</h2>
           <div className="values-grid">
             <div className="value-card">
               <h3>Qualité médicale</h3>

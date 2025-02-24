@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 import About from "../About/About"
 import Home from "../Home/Home"
 import Login from "../Login/login"
+import Overview from "../Overview/Overview"
 import "./App.css"
 import Testimonials from "../../component/Testimonial"
 import Signup from "../Signup/signup"
@@ -12,7 +13,8 @@ import Contact from "../contact/contact"
 import Recrutement from "../recrutement/recrutement"
 import ForgotPassword from "../ForgotPass/ForgotPassword"
 import FindDoctor from "../FindDoc/FindDoctor"
-
+import MyAppointments from "../PatientAppointement/PatientAppointement"
+import Settings from "../Settings/Settings"
 
 function App() {
   const location = useLocation()
@@ -49,7 +51,7 @@ function App() {
                 <Link to="/about">About</Link>
               </li>
               <li>
-                <a href="/#features">Features</a>
+              <Link to="/Overview">Service</Link>
               </li>
               <li>
               <Link to="/contact">Contact</Link>
@@ -83,6 +85,9 @@ function App() {
           <Route path="/recrutement" element={<Recrutement />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/find-doctor" element={<FindDoctor />} />
+          <Route path="/Appointement" element={<MyAppointments />} />
+          <Route path="/Overview" element={<Overview />} />
+          <Route path="/settings" element={<Settings />} />
         </Routes>
 
         {/* Conditionally render sections based on the current route */}
@@ -220,7 +225,7 @@ function App() {
                 <h4>Product</h4>
                 <ul>
                   <li>
-                    <a href="#">Overview</a>
+                    <Link to="/Overview">Overview</Link>
                   </li>
                   <li>
                     <a href="#features">Features</a>
