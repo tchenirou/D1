@@ -1,0 +1,379 @@
+/* Find Doctor Page Styles */
+.find-doctor-page {
+    padding: 4rem;
+    background-color: #f8f6ff;
+    min-height: 100vh;
+  }
+  
+  .search-section {
+    margin-bottom: 2rem;
+  }
+  
+  .search-section h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 1rem;
+  }
+  
+  .search-form {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .search-input {
+    flex-grow: 1;
+    position: relative;
+  }
+  
+  .search-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+  }
+  
+  .search-input input {
+    width: 100%;
+    padding: 1rem 1rem 1rem 3rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    background-color: white;
+    color: black;
+  }
+  
+  .search-button,
+  .filter-button {
+    padding: 1rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .search-button {
+    background-color: #546BFC;
+    color: white;
+  }
+  
+  .search-button:hover {
+    background-color: #3D56F5;
+  }
+  
+  .filter-button {
+    background-color: #f0f0f0;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .filter-button:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .filters {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .filter-select {
+    padding: 0.75rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    background-color: white;
+    color: black;
+  }
+  
+  .view-toggle {
+    padding: 0.75rem 1rem;
+    background-color: #64ffda;
+    color: #333;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .view-toggle:hover {
+    background-color: #45e6c3;
+  }
+  
+  .results-section h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 1rem;
+  }
+  
+  .doctors-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Ensures center alignment */
+    gap: 1.5rem;
+  }
+  
+  .doctor-card {
+    width: calc(33.333% - 1.5rem); /* Ensures 3 columns per row */
+    max-width: 300px;
+    min-width: 250px; /* Prevents the cards from becoming too small */
+    flex-grow: 1; /* Allows the cards to grow */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  
+  .doctor-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .doctor-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .doctor-info {
+    padding: 1.5rem;
+  }
+  
+  .doctor-info h3 {
+    font-size: 1.25rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+  }
+  
+  .doctor-info p {
+    color: #666;
+    margin-bottom: 0.5rem;
+  }
+  
+  .doctor-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .star-icon {
+    color: #ffc107;
+  }
+  
+  .reviews-count {
+    color: #666;
+    font-size: 0.875rem;
+  }
+  
+  .doctor-availability {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #666;
+    font-size: 0.875rem;
+  }
+  
+  .book-button {
+    width: 100%;
+    padding: 1rem;
+    background-color: #546BFC;
+    color: white;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .book-button:hover {
+    background-color: #3D56F5;
+  }
+  
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .appointment-modal {
+    
+    background-color: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+  }
+  
+  .close-modal {
+    
+    position: absolute;
+    top: 2px;
+    right: 10px; /* Adjust position */
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #666;
+    font-size: 1rem; /* Make sure it's visible */
+  }
+  
+  .appointment-modal h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+  }
+  
+  .appointment-modal p {
+    color: #666;
+    margin-bottom: 1rem;
+  }
+  
+  .appointment-calendar {
+    margin-bottom: 1rem;
+  }
+  
+  .confirm-appointment {
+    width: 100%;
+    padding: 1rem;
+    background-color: #546BFC;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .confirm-appointment:hover {
+    background-color: #3D56F5;
+  }
+/* DatePicker Container */
+.react-datepicker {
+    font-family: "Poppins", sans-serif;
+    max-width: 100%;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    overflow: visible !important; /* Ensure dropdown isn't clipped */
+}
+
+/* Fix Dropdown Positioning */
+.react-datepicker-popper {
+    z-index: 9999 !important; /* Ensure it appears above other elements */
+    width: auto !important; /* Allow it to adjust based on content */
+}
+.datepicker-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    text-align: center;
+    background-color: white;
+    cursor: pointer;
+    color: black;
+  }
+  .react-datepicker__day-name {
+    align-items: center;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #333;}
+
+/* Improve Navigation Buttons */
+.react-datepicker__navigation {
+    width: 40px !important; 
+    height: 40px !important; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Make Arrows Bigger */
+.react-datepicker__navigation-icon {
+    width: 24px !important;
+    height: 24px !important;
+    filter: invert(1); /* Makes arrows white */
+}
+
+/* Fix Day Layout */
+.react-datepicker__day {
+    width: 50px !important;  /* Increase size */
+    height: 50px !important; 
+    font-size: 1rem;
+    border-radius: 10px;
+}
+
+/* Prevent Scroll Issues */
+.react-datepicker__month-container {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* Improve Scrollbar for Large Month Lists */
+.react-datepicker__month-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.react-datepicker__month-container::-webkit-scrollbar-thumb {
+    background-color: #aaa;
+    border-radius: 10px;
+}
+
+  
+  
+  
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .search-form {
+      flex-direction: column;
+    }
+  
+    .filters {
+      flex-direction: column;
+    }
+  
+    .doctors-list {
+      grid-template-columns: 1fr;
+    }
+    .appointment-modal {
+        width: 95%;
+        padding: 1.5rem;
+    }
+    @media (max-width: 600px) {
+        .appointment-modal {
+            width: 95%;
+            padding: 1.5rem;
+        }
+    }
+    .react-datepicker {
+        max-width: 320px;
+    }
+    .react-datepicker__day {
+        width: 35px;
+        height: 35px;
+        font-size: 0.9rem;
+    }
+    .modal-overlay {
+        align-items: flex-start !important;
+        overflow-y: auto !important;
+        padding-top: 5vh; /* Prevents cutoff */
+    }
+    .close-modal {
+        top: 5px;
+        right: 5px;
+        font-size: 1.25rem;
+    }
+  }
