@@ -1,10 +1,14 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Calendar, Clock, Video, MessageCircle, CreditCard, X, CheckCircle, AlertCircle, ChevronRight } from 'lucide-react'
+import { Calendar, Clock, Video, MessageCircle, CreditCard, X} from 'lucide-react'
 import { format, isToday, isTomorrow, isPast, differenceInMinutes } from "date-fns"
 import { fr } from "date-fns/locale"
 import "./PatientAppointement.css"
+import Sidebar from "../../component/SideBar/SideBar"
+import ProfileDropdown from "../../component/Dashboards/Profilepic/ProfileDropdown"
+
+
 
 // Mock data for appointments
 const mockAppointments = [
@@ -130,6 +134,9 @@ export default function MyAppointments() {
 
   return (
     <div className="my-appointments-page">
+      
+      <Sidebar/>
+      <ProfileDropdown />
       <div className="appointments-container">
         <div className="appointments-card">
           <h1 className="page-title">Mes Rendez-vous</h1>

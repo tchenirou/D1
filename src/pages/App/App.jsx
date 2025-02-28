@@ -7,14 +7,15 @@ import Home from "../Home/Home"
 import Login from "../Login/login"
 import Overview from "../Overview/Overview"
 import "./App.css"
-import Testimonials from "../../component/Testimonial"
+import Testimonials from "../../component/Feautures/Testimonial"
 import Signup from "../Signup/signup"
 import Contact from "../contact/contact"
 import Recrutement from "../recrutement/recrutement"
 import ForgotPassword from "../ForgotPass/ForgotPassword"
 import FindDoctor from "../FindDoc/FindDoctor"
-import MyAppointments from "../PatientAppointement/PatientAppointement"
+import Appointments from "../PatientAppointement/PatientAppointement"
 import Settings from "../Settings/Settings"
+import PatientDashboard from "../Dashboard/PatienDashboard/patient-dashboard"
 
 function App() {
   const location = useLocation()
@@ -32,9 +33,15 @@ function App() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  // All the Dashboard Pages 
+  const dashboardRoutes = ["/patient-dashboard" ,"/find-doctor","/Appointments" ,"/settings"];
+  // Hide header for dashboard pages
+  const isDashboardPage = dashboardRoutes.includes(location.pathname);
+
   return (
     <div className="app">
       {/* Header */}
+      {!isDashboardPage && (
       <header className={isVisible ? "visible" : "hidden"}>
         <div className="container">
           <div className="logo">
@@ -66,17 +73,19 @@ function App() {
           <Link to="/signup" className="signup-button">S'inscrire</Link>
           </div>
         </div>
-      </header>
+      </header>)}
 
       {/* Main Content */}
       <div
         className="main-content"
         style={{
-          marginTop: isVisible ? "80px" : "0px", // Adjust based on header visibility
+          marginTop: isVisible ? "80px" : "0px",  // Adjust based on header visibility
+          marginTop: isDashboardPage ? "0px" : "80px",
           transition: "margin-top 0.3s ease-in-out",
         }}
       >
         <Routes>
+          
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
@@ -85,9 +94,10 @@ function App() {
           <Route path="/recrutement" element={<Recrutement />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/find-doctor" element={<FindDoctor />} />
-          <Route path="/Appointement" element={<MyAppointments />} />
+          <Route path="/Appointments" element={<Appointments />} />
           <Route path="/Overview" element={<Overview />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/patient-dashboard" element={<PatientDashboard />} />
         </Routes>
 
         {/* Conditionally render sections based on the current route */}
@@ -188,7 +198,8 @@ function App() {
                   <h4>📞 Assistance en continu : Contactez-nous via chat, e-mail ou téléphone.</h4>
                   <h4>🤝 Accompagnement personnalisé pour une expérience fluide et sans stress.</h4>
                   <h4>⚡ Réponse rapide garantie – Vous ne serez jamais seul !</h4>
-                  <button className="primary-button">Contacter le Support</button>
+                  <Link to="/contact" className="primary-button">Contacter le Support</Link>
+                  
                 </div>
                 <div className="cta-image">
                   <img src="/Images/support.png" alt="support" />
@@ -199,6 +210,7 @@ function App() {
         )}
 
         {/* Footer */}
+        {!isDashboardPage && (
         <footer>
           <div className="container">
             <div className="footer-columns">
@@ -269,7 +281,7 @@ function App() {
               </div>
             </div>
           </div>
-        </footer>
+        </footer>)}
       </div>
     </div>
   )

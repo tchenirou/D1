@@ -1,18 +1,21 @@
 "use client"
 
 import { useState } from "react"
-import { User, Shield, Edit2, Trash2, Save, X, Eye, EyeOff, Camera } from "lucide-react"
+import {User, Shield, Edit2, Trash2, Save, X, Eye, EyeOff, Camera } from "lucide-react"
 import "./Settings.css"
+import ProfileDropdown from "../../component/Dashboards/Profilepic/ProfileDropdown"
+import Sidebar from "../../component/SideBar/SideBar"
 
 const Settings = () => {
+  
   // State for user information
   const [userInfo, setUserInfo] = useState({
-    firstName: "John",
-    lastName: "Doe",
-    email: "john.doe@example.com",
-    phone: "+213 555 123456",
-    address: "123 Main St, Algiers",
-    avatar: "/placeholder.svg?height=200&width=200",
+    firstName: "dwak",
+    lastName: "test",
+    email: "TestDwak@gmail.com",
+    phone: "+213 555 393238",
+    address: "Univ . Ain temouchent",
+    avatar: "../Images/logo.png",
   })
 
   // State for security information
@@ -160,6 +163,8 @@ const Settings = () => {
 
   return (
     <div className="settings-page">
+      <Sidebar/>
+      <ProfileDropdown />
       <div className="settings-container">
         <h1 className="settings-title">Account Settings</h1>
 

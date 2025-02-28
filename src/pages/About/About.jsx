@@ -14,14 +14,14 @@ const teamMembers = [
     name: "Tas Alaa Eddine",
     role: "Etudiant L3",
     bio: "Startup Memoire PFC",
-    image: "/Images/amine.png"
+    image: "/Images/alaa-tas.png"
   },
   {
     id: 3,
     name: "Boudjema Mohamed Nadir",
     role: "Etudiant L3",
     bio: "Startup Memoire PFC",
-    image: "/Images/yasmine.png"
+    image: "/Images/nadir.png"
   }
 ];
 

@@ -134,11 +134,12 @@
     color: #546BFC;
   }
   
-  .checkbox-group {
+  .signup-page .checkbox-group {
     margin-bottom: 2rem;
+    flex-direction: column;
   }
   
-  .checkbox-group label {
+  .signup-page .checkbox-group label {
     display: flex;
     align-items: flex-start;
     gap: 0.75rem;
@@ -197,18 +198,6 @@
   cursor: not-allowed; /* Show disabled cursor */
   opacity: 0.7;
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   /* Responsive adjustments */
