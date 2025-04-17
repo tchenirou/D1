@@ -1,23 +1,66 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+
 
 function Login() {
+  const [role, setRole] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
-
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+  
+  const handleSubmit = async (e) => {
     e.preventDefault();
+  
     setEmailError(!email.trim());
     setPasswordError(!password.trim());
-
-    if (email && password) {
-      console.log("Login attempt", { email, password });
+  
+    if (!email || !password) return;
+  
+    console.log("Sending login request...");
+  
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }), // No role sent
+      });
+  
+      const data = await response.json();
+      console.log("Response from backend:", data);
+  
+      if (!response.ok) {
+        alert(data.error || "Erreur lors de la connexion");
+        return;
+      }
+  
+      console.log("Login successful, navigating to role:", data.user.role);
+  
+      switch (data.user.role) {
+        case "patient":
+          navigate("/patient-dashboard");
+          break;
+        case "doctor":
+          navigate("/doctor-dashboard");
+          break;
+        case "admin":
+          navigate("/admin-dashboard");
+          break;
+        default:
+          alert("Rôle inconnu");
+      }
+    } catch (err) {
+      console.error("Login error:", err);
+      alert("Erreur de connexion au serveur");
     }
   };
+  
+  
+  
 
   const handleInputChange = (setter, setError) => (e) => {
     setter(e.target.value);

@@ -12,11 +12,18 @@ import Signup from "../Signup/signup"
 import Contact from "../contact/contact"
 import Recrutement from "../recrutement/recrutement"
 import ForgotPassword from "../ForgotPass/ForgotPassword"
-import FindDoctor from "../FindDoc/FindDoctor"
-import Appointments from "../PatientAppointement/PatientAppointement"
-import Settings from "../Settings/Settings"
-import PatientDashboard from "../Dashboard/PatienDashboard/patient-dashboard"
-
+import FindDoctor from "../Dashboard/PatienDashboard/FindDoc/FindDoctor"
+import Appointments from "../Dashboard/PatienDashboard/PatientAppointement/PatientAppointement";
+import Settings from "../Dashboard/PatienDashboard/Settings/Settings"
+import PatientDashboard from "../Dashboard/PatienDashboard/Dashboard/patient-dashboard"
+import DoctorDashboard from "../Dashboard/DoctorDashboard/Dashboard/Doctor-Dashboard"
+import DoctorAppointments from "../Dashboard/DoctorDashboard/Appointments/Doctor-Appointments"
+import DoctorSettings from "../Dashboard/DoctorDashboard/DoctorSettings/DoctorSettings"
+import AdminDashboard from "../Dashboard/AdminDashboard/Dashboard/AdminDashboard"
+import AdminDoctors from "../Dashboard/AdminDashboard/AdminDoctors/AdminDoctors"
+import AdminSettings from "../Dashboard/AdminDashboard/AdminSettings/AdminSettings"
+import AdminPatients from "../Dashboard/AdminDashboard/AdminPatients/AdminPatients"
+import AdminAppointments from "../Dashboard/AdminDashboard/AdminAppointments/AdminAppointments"
 function App() {
   const location = useLocation()
   const [isVisible, setIsVisible] = useState(true)
@@ -34,7 +41,10 @@ function App() {
   }, [])
 
   // All the Dashboard Pages 
-  const dashboardRoutes = ["/patient-dashboard" ,"/find-doctor","/Appointments" ,"/settings"];
+  const dashboardRoutes = ["/patient-dashboard" ,"/find-doctor","/Appointments" ,"/settings" ,"/doctor-dashboard", 
+    "/doctor-appointments", "/doctor-settings", "/admin-dashboard", "/admin-doctors", 
+    "/admin-patients", "/admin-appointments", "/admin-messages", "/admin-reports",
+     "/admin-billing", "/admin-settings"] ;
   // Hide header for dashboard pages
   const isDashboardPage = dashboardRoutes.includes(location.pathname);
 
@@ -98,6 +108,14 @@ function App() {
           <Route path="/Overview" element={<Overview />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/patient-dashboard" element={<PatientDashboard />} />
+          <Route path="/doctor-dashboard" element={<DoctorDashboard />} />\
+          <Route path="/doctor-appointments" element={<DoctorAppointments />} />
+          <Route path="/doctor-settings" element={<DoctorSettings />} />
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
+          <Route path="/admin-doctors" element={<AdminDoctors />} />
+          <Route path="/admin-settings" element={<AdminSettings />} />
+          <Route path="/admin-patients" element={<AdminPatients />} />
+          <Route path="/admin-appointments" element={<AdminAppointments />} />
         </Routes>
 
         {/* Conditionally render sections based on the current route */}
